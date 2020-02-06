@@ -1,26 +1,38 @@
 // Description: print out the first non-repeating character of a string.
 
-const nonRepeatingCharacters = string => {
+const nonRepeatingCharactersObj = string => {
   const characters = {};
-  // iterate through string
+  // Iterate through string
   for (i = 0; i < string.length; i++) {
     let key = string[i];
-    // if it exists add 1
+    // If it exists add 1
     if (key in characters) {
       characters[key] = characters[key] + 1;
-      // if it doesn't already exist put it in there
+      // If it doesn't already exist put it in there
     } else {
       characters[key] = 1;
     }
   }
-  // iterate through string
+  // Iterate through string
   for (i = 0; i < string.length; i++) {
     let key = string[i];
-    // return first key that has a value of one
+    // Return first key that has a value of one
     if (characters[key] === 1) {
       return key;
     }
   }
 };
 
-console.log(nonRepeatingCharacters('aaabcccdeeef'));
+const nonRepeatingCharactersIndexOf = string => {
+  // Iterate through the string
+  for (i = 0; i < string.length; i++) {
+    let char = string[i];
+    // If a characters first and last index is the same, it only occurs once
+    if (string.indexOf(char) === string.lastIndexOf(char)) {
+      return char;
+    }
+  }
+};
+
+console.log(nonRepeatingCharactersObj('aaabcccdeeef'));
+console.log(nonRepeatingCharactersIndexOf('aaabcccdeeef'));
