@@ -23,8 +23,11 @@ const balancedWeights = target => {
 const findClosestWeight = current => {
   let closestWeight = 0;
   let index = 0;
+  let lower = 0;
+  let higher = 0;
+
   // Copy of weigths add current target and sort
-  let weightsCopy = weights;
+  let weightsCopy = weights.slice();
   weightsCopy.push(current);
   weightsCopy.sort((a, b) => {
     return a - b;
@@ -32,14 +35,22 @@ const findClosestWeight = current => {
   // Finds the index of the current target
   const isEqual = element => element === current;
   index = weightsCopy.findIndex(isEqual);
+  lower = index - 1;
+  higher = index + 1;
   // Weight closest to the current target is returned
   if (
-    Math.abs(current - weightsCopy[index - 1]) <
-    Math.abs(weightsCopy[index + 1] - current)
+    Math.abs(current - weightsCopy[lower]) <
+    Math.abs(weightsCopy[higher] - current)
   ) {
-    closestWeight = weightsCopy[index - 1];
+    closestWeight = weightsCopy[lower];
+    // const compareLower = element => element === closestWeight;
+    // index = weights.findIndex(compareLower);
+    // weights.splice(index, 1);
   } else {
-    closestWeight = weightsCopy[index + 1];
+    closestWeight = weightsCopy[higher];
+    // const compareHigher = element => element === closestWeight;
+    // index = weights.findIndex(compareHigher);
+    // weights.splice(index, 1);
   }
   return closestWeight;
 };
@@ -53,7 +64,7 @@ const sumArray = array => {
   return total;
 };
 
-balancedWeights(6);
+// balancedWeights(5);
 module.exports = {
   balancedWeights,
   findClosestWeight,
